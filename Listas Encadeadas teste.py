@@ -1,6 +1,4 @@
-def solveJosephus (n, m):
-    n = int(input())
-    m = int(input())
+
 
 class Pessoa:
     def __init__(self, data=None):
@@ -57,17 +55,3 @@ class LinkedList:
                 return
             atual_idx += 1
         
-
-
-
-l = LinkedList()
-l.append(1)
-l.append(2)
-l.append(3)
-l.append(4)
-l.append(5)
-l.append(6)
-l.display()
-l.remove(1)
-l.display()
-
