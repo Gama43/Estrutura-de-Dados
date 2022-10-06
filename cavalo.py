@@ -49,35 +49,33 @@ A = [
 
 def get_distances(A, x):
     n = len(A)
-    dist = [-1]*n
-    q = Queue(n)
-    dist[x] = 0
+    q = Queue(n*n) 
+    A[x[0]][x[1]] = 0 
     q.push(x)
     while(not q.is_empty()):
-        y = q.pop()
-        for i in range(n):
-              if d[0] > 0 and d[0] < 7 and d[1] > 0 and d[1] < 7 and A[d[0]][d[1]] == -1:
-                dist[i] = A[d] + 1 #tabelar
-                q.push(d) #tem que ser o d
-    return dist
+        y = q.pop() 
+        for m in movimentos:
+            d = y[0]+ m[0], y[1]+ m[1]
+            
+            if d[0] >= 0 and d[0] <= 7 and d[1] >= 0 and d[1] <= 7 and A[d[0]][d[1]] == -1:
+                A[d[0]][d[1]] = A[y[0]][y[1]] + 1
+                q.push(d) 
+           
+    return A[linha_destino][col_destino]
+
 
 
 
 
 linha = {'a': 0, 'b': 1, 'c': 2, 'd': 3, 'e': 4, 'f': 5, 'g': 6, 'h': 7  }
-origem = 'a1'
-destino = 'b2'
+origem =  input()
+destino = input()
 linha_origem = linha[origem[0]]
 col_origem = int(origem[1])-1
-linha_destino = linha[origem[0]]
+linha_destino = linha[destino[0]]
 col_destino = int(destino[1])-1
-
 inicio = (linha_origem, col_origem)
 fim = (linha_destino, col_destino)
 
-
-
-for m in movimentos:
-    d = inicio[0]+ m[0], inicio[1]+ m[1]
-    dist = get_distances(A, d)
-print(dist)
+get_distances(A, inicio)
+print('Movimentos:', A[linha_destino][col_destino])
