@@ -1,0 +1,71 @@
+
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+class Arvore:
+
+    def __init__(self):
+        self.root = None
+    
+    def inorder(self, pivot):
+        if pivot is not None:
+            self.inorder(pivot.left)
+            print(pivot.value)
+            self.inorder(pivot.right)
+
+    def preorder(self, pivot):
+        if pivot is not None:
+            print(pivot.value, end='')
+            self.preorder(pivot.left)
+            self.preorder(pivot.right)
+    
+    def posorder(self,pivot):
+        if pivot is not None:
+            self.posorder(pivot.left)
+            self.posorder(pivot.right)
+            print(pivot.value, end="")
+
+def verificar_operador(expressao):
+    i = len(expressao.value) - 1
+    while i >= 0:
+        x = expressao.value[i]
+        if x == '+' or x == '-':
+            return i
+
+        else:
+            if "+" not in expressao.value and "-" not in expressao.value:
+                if x == '*' or x == '/':
+
+                    return i
+        i -= 1
+
+def montando_arvore(expressao):
+    i = verificar_operador(expressao)
+    
+    if i is not None:
+        raiz = expressao.value[i]
+        filho_esquerdo = Node(expressao.value[0:i])
+        filho_direito = Node(expressao.value[i+1:])
+        expressao.value = raiz
+        expressao.right = filho_direito
+        expressao.left = filho_esquerdo
+
+        montando_arvore(filho_esquerdo)
+        
+        montando_arvore(filho_direito)
+    
+    
+    
+
+
+expressao = Node(input())
+arvore = Arvore()
+montando_arvore(expressao)
+arvore.root = expressao
+pre = arvore.preorder(expressao)
+print('')
+pos = arvore.posorder(expressao)
